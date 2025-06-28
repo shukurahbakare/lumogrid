@@ -7,9 +7,11 @@ import CustomButton from "../../../../../../components/shared/button/CustomButto
 import { GoArrowRight } from "react-icons/go";
 
 const SignUpModule = () => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm<{
+    name: string;
+  }>();
 
-  const onSubmit = (data: { name: "" }) => {
+  const onSubmit = (data: { name: string }) => {
     console.log(data);
   };
 
@@ -20,9 +22,12 @@ const SignUpModule = () => {
           title="Let’s Get to Know You Better to
 Create Your Perfect Energy Solution!"
         />
-        <form action="" className="max-w-xs flex flex-col gap-10 items-center">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="max-w-xs flex flex-col gap-10 items-center"
+        >
           <label htmlFor="" className="text-xl mt-4">
-What is Your Name?
+            What is Your Name?
           </label>
           <TextInput
             label={""}

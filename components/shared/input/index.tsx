@@ -88,7 +88,7 @@ export const TextInput = <T extends Record<string, unknown>>({
 
       {
         info && <div className="mt-3 text-xs text-gray-500 flex gap-1 items-center justify-center text-center w-full">
-      <TbInfoCircleFilled className="text-lg"/>   <p>{info}</p>
+      <TbInfoCircleFilled className="text-md"/>   <p>{info}</p>
         </div>
       }
     </div>
