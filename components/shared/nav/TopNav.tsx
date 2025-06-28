@@ -9,8 +9,8 @@ const navLinks = [
   {
     label: "Products",
     subLinks: [
-      { label: "For business", href: "/products/business" },
-      { label: "For personal", href: "/products/personal" },
+      { label: "For personal", href: "/" },
+      { label: "For business", href: "/business" },
     ],
   },
   { label: "Company", href: "/" },
@@ -27,7 +27,7 @@ const TopNav = () => {
   };
 
   return (
-    <nav className="bg-white border-b border-gray-200">
+    <nav className="border-b border-gray-200 bg-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           <div className="flex-shrink-0 flex items-center">
