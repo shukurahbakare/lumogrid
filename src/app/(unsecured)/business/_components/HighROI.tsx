@@ -23,19 +23,18 @@ const solutionPoints = [
   },
 ];
 
-const TheSolutionComp = () => {
+const HighROIComp = () => {
   return (
-    <div className="bg-[#DCFCE7] py-16 sm:py-16 transition-all duration-300">
+    <div className="bg-white border-b border-gray-200 py-16 sm:py-16 transition-all duration-300">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-between items-center gap-10 text-center">
         <div className="flex flex-col gap-4 justify-between items-center">
           <h2 className="text-4xl font-bold max-w-lg leading-10">
-            The Solution – Solar Power, the Future of Business Energy
+           High ROI – <br/>
+Maximize Your Investment
           </h2>
           <p className="text-sm max-w-lg">
-            Solar power offers a sustainable, reliable, and affordable
-            alternative to grid electricity. With LumoGrid, your business can
-            reduce energy costs, gain energy independence, and protect your
-            operations from unpredictable outages.
+           Switching to solar isn’t just good for the planet – it’s great for your profit margins, too!
+With LumoGrid, businesses can expect
           </p>
         </div>
         <ul className="grid md:grid-cols-3 gap-4">
@@ -56,4 +55,4 @@ const TheSolutionComp = () => {
   );
 };
 
-export default TheSolutionComp;
+export default HighROIComp;
