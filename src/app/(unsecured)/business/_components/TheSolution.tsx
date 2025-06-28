@@ -29,7 +29,7 @@ const TheSolutionComp = () => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-between items-center gap-10 text-center">
         <div className="flex flex-col gap-4 justify-between items-center">
           <h2 className="text-4xl font-bold max-w-lg leading-10">
-            The Solution – Solar Power, the Future of Business Energy
+            The Solution &#8211; Solar Power, the Future of Business Energy
           </h2>
           <p className="text-sm max-w-lg">
             Solar power offers a sustainable, reliable, and affordable

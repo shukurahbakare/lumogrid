@@ -29,12 +29,12 @@ const HighROIComp = () => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-between items-center gap-10 text-center">
         <div className="flex flex-col gap-4 justify-between items-center">
           <h2 className="text-4xl font-bold max-w-lg leading-10">
-           High ROI – <br/>
-Maximize Your Investment
+            High ROI &#8211; <br />
+            Maximize Your Investment
           </h2>
           <p className="text-sm max-w-lg">
-           Switching to solar isn’t just good for the planet – it’s great for your profit margins, too!
-With LumoGrid, businesses can expect
+            Switching to solar isn&#39;t just good for the planet &#8211; it&#39;s great for your profit margins, too!
+            With LumoGrid, businesses can expect
           </p>
         </div>
         <ul className="grid md:grid-cols-3 gap-4">
@@ -45,7 +45,7 @@ With LumoGrid, businesses can expect
             >
               <strong className="text-xl max-w-2xs">{point.title}</strong>{" "}
               <p>{point.description}</p>
-              <Image src={point.img} alt={point.title} className="mt-4"/>
+              <Image src={point.img} alt={point.title} className="mt-4" />
             </li>
           ))}
         </ul>
