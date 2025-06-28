@@ -1,5 +1,5 @@
 import React from 'react'
-import LandingPageModule from './(home)/_components'
+import LandingPageModule from './_components'
 
 const LandingPage = () => {
   return <LandingPageModule />

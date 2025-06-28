@@ -97,7 +97,7 @@ const TopNav = () => {
           </div>
 
           <div className="flex items-center">
-            <CustomButton text={"Create Account"} />
+            <CustomButton text={"Create Account"} link="/signup"/>
             <button
               onClick={() => mobileMenuRef.current?.showModal()}
               className="md:hidden flex ml-2 items-center justify-center p-2 rounded-md text-gray-700 hover:bg-gray-200 focus:outline-none"
