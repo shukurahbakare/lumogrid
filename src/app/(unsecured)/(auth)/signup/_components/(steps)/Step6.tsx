@@ -21,7 +21,7 @@ const Step6 = () => {
   const onSubmit = (data: FormData) => {
     console.log("Step 1 data:", data);
     localStorage.setItem("signupData", JSON.stringify({ email: data.email }));
-    router.push("/signup/7");
+    router.push("/options");
   };
 
   return (
