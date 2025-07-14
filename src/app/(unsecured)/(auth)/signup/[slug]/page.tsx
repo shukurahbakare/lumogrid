@@ -1,6 +1,9 @@
 import Step1 from "../_components/(steps)/Step1";
 import Step2 from "../_components/(steps)/Step2";
 import Step3 from "../_components/(steps)/Step3";
+import Step4 from "../_components/(steps)/Step4";
+import Step5 from "../_components/(steps)/Step5";
+import Step6 from "../_components/(steps)/Step6";
 
 export default function Page({
   params,
@@ -18,11 +21,11 @@ export default function Page({
       case '3':
         return <Step3/>;
       case '4':
-        return <div>step 4</div>;
+        return <Step4/>;
       case '5':
-        return <div>step 5</div>;
+        return <Step5/>;
       case '6':
-        return <div>step 6</div>;
+        return <Step6/>;
       default:
         return <div>Invalid step number</div>;
     }

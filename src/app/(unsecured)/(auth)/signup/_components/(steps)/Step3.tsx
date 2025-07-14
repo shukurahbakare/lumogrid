@@ -21,7 +21,7 @@ const Step3 = () => {
   const onSubmit = (data: FormData) => {
     console.log("Step 1 data:", data);
     localStorage.setItem("signupData", JSON.stringify({ phone: data.phone }));
-    router.push("/signup/3");
+    router.push("/signup/4");
   };
 
   return (
@@ -43,7 +43,7 @@ const Step3 = () => {
               validation={{
                 required: "Phone Number is required",
                 pattern: {
-                  value: /^\d{10}$/,
+                  value: /^\d{11}$/,
                   message: "Invalid phone number",
                 },
               }}
@@ -58,7 +58,7 @@ const Step3 = () => {
               text="Previous"
               icon={GoArrowLeft}
               iconPosition="left"
-              onClick={() => router.push("/signup/1")}
+              onClick={() => router.push("/signup/2")}
             />
             <CustomButton
               text="Next"

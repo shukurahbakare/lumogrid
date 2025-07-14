@@ -5,13 +5,12 @@ import { GoArrowLeft, GoArrowRight } from "react-icons/go";
 import CustomButton from "../../../../../../../components/shared/button/CustomButton";
 import { TextInput } from "../../../../../../../components/shared/input";
 import AuthHeader from "../../../_components/AuthHeader";
-import EmailIcon from "../../../_components/assets/letters.png"
 
 type FormData = {
   email: string;
 };
 
-const Step1 = () => {
+const Step6 = () => {
   const router = useRouter();
   const {
     register,
@@ -22,7 +21,7 @@ const Step1 = () => {
   const onSubmit = (data: FormData) => {
     console.log("Step 1 data:", data);
     localStorage.setItem("signupData", JSON.stringify({ email: data.email }));
-    router.push("/signup/3");
+    router.push("/signup/7");
   };
 
   return (
@@ -32,8 +31,8 @@ const Step1 = () => {
 
         <form onSubmit={handleSubmit(onSubmit)} className="w-full">
           <div className="max-w-sm mx-auto flex flex-col gap-10 items-center mb-10">
-            <label htmlFor="email" className="text-xl mt-4">
-              What is Your Email Address?
+            <label htmlFor="email" className="text-xl mt-4 text-center">
+              How Many Hours Do You Need Electricity For In A Day
             </label>
 
             <TextInput
@@ -59,7 +58,7 @@ const Step1 = () => {
               text="Previous"
               icon={GoArrowLeft}
               iconPosition="left"
-              onClick={() => router.push("/signup/1")}
+              onClick={() => router.push("/signup/5")}
             />
             <CustomButton
               text="Next"
@@ -68,12 +67,10 @@ const Step1 = () => {
             />
           </div>
         </form>
-  <div className="absolute top-[30%] -right-8 z-10">
-    <img src={EmailIcon.src} alt="Email Icon" className="w-24 h-24" />
-  </div>
+
       </div>
     </div>
   );
 };
 
-export default Step1;
+export default Step6;
