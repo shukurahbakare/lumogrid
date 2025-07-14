@@ -28,7 +28,7 @@ const PaymentModule = () => {
     <div className="w-full mx-auto p-8">
       <div className="w-full max-w-7xl mx-auto">
         <header className="py-8 flex justify-between">
-          <div className="text-2xl text-gray-800 mb-4 flex items-center gap-2">
+          <div onClick={() => router.push("/options")} className="text-2xl text-gray-800 mb-4 flex items-center gap-2">
             <HiMiniArrowLeft />
             <p className="text-xl">Options</p>
           </div>
