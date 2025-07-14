@@ -51,7 +51,7 @@ export const TextInput = <T extends Record<string, unknown>>({
   const errorMessage = error?.message || getErrorMessage(error);
 
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col w-full transition-all duration-300 ease-in-out">
       <label
         htmlFor={String(name)}
         className="mb-1 text-sm font-medium text-gray-600"
@@ -81,8 +81,8 @@ export const TextInput = <T extends Record<string, unknown>>({
         )}
       </div>
       {errorMessage && (
-        <p className="text-red-500 text-xs mt-1">
-          {error?.message || errorMessage}
+        <p className="text-red-500 text-sm mt-1 w-full bg-red-300/10 p-2 rounded text-center flex items-center justify-center gap-2 transition-all duration-300 ease-in-out">
+         <TbInfoCircleFilled className="text-lg" /> {error?.message || errorMessage}
         </p>
       )}
 

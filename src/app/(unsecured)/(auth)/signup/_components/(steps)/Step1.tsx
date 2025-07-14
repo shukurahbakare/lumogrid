@@ -1,19 +1,22 @@
 "use client";
 import React from "react";
-import AuthHeader from "../../_components/AuthHeader";
 import { TextInput } from "@/../components/shared/input";
 import { useForm } from "react-hook-form";
-import CustomButton from "../../../../../../components/shared/button/CustomButton";
+import CustomButton from "@/../components/shared/button/CustomButton";
 import { GoArrowRight } from "react-icons/go";
+import AuthHeader from "../../../_components/AuthHeader";
+import { useRouter } from "next/navigation";
 
-const SignUpModule = () => {
+const Step1 = () => {
+  const router = useRouter()
   const { register, handleSubmit } = useForm<{
     name: string;
   }>();
 
   const onSubmit = (data: { name: string }) => {
     console.log(data);
-  };
+    router.push('/signup/2');
+  }
 
   return (
     <div className="w-full mx-auto">
@@ -34,6 +37,7 @@ Create Your Perfect Energy Solution!"
             name={"name"}
             placeholder="Shukurah Bakare"
             register={register}
+            className="text-center"
             info={"First Name, Middle Name, Surname"}
           />
 
@@ -44,4 +48,4 @@ Create Your Perfect Energy Solution!"
   );
 };
 
-export default SignUpModule;
+export default Step1;

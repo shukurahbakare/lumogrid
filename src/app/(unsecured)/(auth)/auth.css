@@ -1,0 +1,7 @@
+.emailStep {
+  @apply relative
+}
+
+.emailIcon {
+  background-image: url("/src/app/\(unsecured\)/\(auth\)/_components/assets/letters.png");
+}
