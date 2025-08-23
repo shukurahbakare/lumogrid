@@ -9,7 +9,7 @@ import { useState } from "react";
 import { TbCircleCheckFilled, TbCircle } from "react-icons/tb";
 
 type FormData = {
-  phone: string;
+  buildingType: string;
 };
 
 const Step4 = () => {
@@ -31,6 +31,9 @@ const Step4 = () => {
   };
 
   const onSubmit = () => {
+     console.log("Step 1 data:", selectedType);
+      const existingData = JSON.parse(localStorage.getItem("signupData") || "{}");
+    localStorage.setItem("signupData", JSON.stringify({ ...existingData,buildingType: selectedType }));
     router.push("/signup/5");
   };
 
@@ -41,7 +44,7 @@ const Step4 = () => {
 
         <div className="w-full">
           <div className=" flex flex-col gap-10 items-center mb-10">
-            <label htmlFor="phone" className="text-xl mt-4">
+            <label htmlFor="buildingType" className="text-xl mt-4">
               What type of building do you live in?
             </label>
 

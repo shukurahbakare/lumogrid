@@ -7,7 +7,7 @@ import { TextInput } from "../../../../../../../components/shared/input";
 import AuthHeader from "../../../_components/AuthHeader";
 
 type FormData = {
-  email: string;
+  energyHours: string;
 };
 
 const Step6 = () => {
@@ -18,11 +18,54 @@ const Step6 = () => {
     formState: { errors },
   } = useForm<FormData>();
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit =async (data: FormData) => {
     console.log("Step 1 data:", data);
-    localStorage.setItem("signupData", JSON.stringify({ email: data.email }));
-    router.push("/options");
+    const existingData = JSON.parse(localStorage.getItem("signupData") || "{}");
+    localStorage.setItem("signupData", JSON.stringify({...existingData, energyHours: data.energyHours }));
+
+    const storedData = JSON.parse(localStorage.getItem("signupData") || "{}");
+    console.log("Stored data before update:", storedData);
+    try {
+      // Call your API (replace with your endpoint)
+      const res = await fetch("https://lumobackend.onrender.com/api/v1/user/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(storedData)
+      });
+
+      if (!res.ok) {
+        throw new Error(`API error: ${res.status}`);
+      }
+
+      const result = await res.json();
+      console.log("API Response:", result);
+      router.push(`/options?id=${result.user._id}`)
+
+          // Assuming response contains { redirectUrl: "https://example.com/data" }
+  // if (result.redirectUrl) {
+  //     const fullUrl = `https://lumobackend.onrender.com/api/v1/user/recommendations/${result.user._id}`;
+
+  //     const recRes = await fetch(fullUrl, {
+  //       method: "GET",
+  //       headers: { "Content-Type": "application/json" },
+  //     });
+
+  //     const recommendations = await recRes.json();
+  //     console.log("Recommendations:", recommendations);
+
+  //     // 3️⃣ Save recommendations to state/localStorage if needed
+  //     localStorage.setItem("recommendations", JSON.stringify(recommendations));
+
+  //     // 4️⃣ Redirect to options page
+  //     router.push(`/options?id=${result.user._id}`);
+  //   }
+    } catch (err) {
+      console.error("Error submitting signup:", err);
+      alert("Something went wrong. Please try again.");
+    }
+    // router.push("/options");
   };
+  https://lumobackend.onrender.com/api/v1/user/recommendations/68711a79915fafc376615603
 
   return (
     <div className="w-full mx-auto">
@@ -36,18 +79,12 @@ const Step6 = () => {
             </label>
 
             <TextInput
-              type="email"
-              name="email"
-              placeholder="shukurah@lumogrid.com"
+              type="number"
+              name="energyHours"
+              placeholder="12"
               register={register}
-              validation={{
-                required: "Email is required",
-                pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                  message: "Invalid email address",
-                },
-              }}
-              error={errors.email}
+              
+              error={errors.energyHours}
               className="text-center w-full max-w-md"
               label={""}
             />

@@ -5,35 +5,31 @@ import Step4 from "../_components/(steps)/Step4";
 import Step5 from "../_components/(steps)/Step5";
 import Step6 from "../_components/(steps)/Step6";
 
-export default function Page({
+export default async function Page({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const { slug } = params;
+  const { slug } = await params;
 
   const renderStepContent = () => {
-    switch(slug) {
-      case '1':
-        return <Step1/>;
-      case '2':
-        return <Step2/>;
-      case '3':
-        return <Step3/>;
-      case '4':
-        return <Step4/>;
-      case '5':
-        return <Step5/>;
-      case '6':
-        return <Step6/>;
+    switch (slug) {
+      case "1":
+        return <Step1 />;
+      case "2":
+        return <Step2 />;
+      case "3":
+        return <Step3 />;
+      case "4":
+        return <Step4 />;
+      case "5":
+        return <Step5 />;
+      case "6":
+        return <Step6 />;
       default:
         return <div>Invalid step number</div>;
     }
   };
 
-  return (
-    <div>
-      {renderStepContent()}
-    </div>
-  );
+  return <div>{renderStepContent()}</div>;
 }

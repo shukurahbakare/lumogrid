@@ -19,8 +19,9 @@ const Step3 = () => {
   } = useForm<FormData>();
 
   const onSubmit = (data: FormData) => {
-    console.log("Step 1 data:", data);
-    localStorage.setItem("signupData", JSON.stringify({ phone: data.phone }));
+    console.log("Step 1 data:", data.phone);
+     const existingData = JSON.parse(localStorage.getItem("signupData") || "{}");
+    localStorage.setItem("signupData", JSON.stringify({ ...existingData,phone: data.phone }));
     router.push("/signup/4");
   };
 

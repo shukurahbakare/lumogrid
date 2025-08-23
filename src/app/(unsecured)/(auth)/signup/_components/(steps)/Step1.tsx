@@ -15,6 +15,13 @@ const Step1 = () => {
 
   const onSubmit = (data: { name: string }) => {
     console.log(data);
+    const existingData = JSON.parse(localStorage.getItem("signupData") || "{}");
+  
+  // Save name along with other stored values
+  localStorage.setItem("signupData", JSON.stringify({
+    ...existingData,
+    name: data.name
+  }));
     router.push('/signup/2');
   }
 

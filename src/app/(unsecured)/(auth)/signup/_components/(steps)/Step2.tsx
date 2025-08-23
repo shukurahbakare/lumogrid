@@ -11,7 +11,7 @@ type FormData = {
   email: string;
 };
 
-const Step1 = () => {
+const Step2 = () => {
   const router = useRouter();
   const {
     register,
@@ -20,8 +20,9 @@ const Step1 = () => {
   } = useForm<FormData>();
 
   const onSubmit = (data: FormData) => {
-    console.log("Step 1 data:", data);
-    localStorage.setItem("signupData", JSON.stringify({ email: data.email }));
+    console.log("Step 1 data:", data.email);
+     const existingData = JSON.parse(localStorage.getItem("signupData") || "{}");
+    localStorage.setItem("signupData", JSON.stringify({  ...existingData,email: data.email }));
     router.push("/signup/3");
   };
 
@@ -76,4 +77,4 @@ const Step1 = () => {
   );
 };
 
-export default Step1;
+export default Step2;
