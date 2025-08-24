@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import Image from "next/image";
 import { RiArrowRightSLine } from "react-icons/ri";
 import { HiMiniArrowLeft } from "react-icons/hi2";
@@ -18,7 +18,7 @@ type SolarPackage = {
   fullChargeHours: number;
 };
 
-const OptionsModule = () => {
+function OptionsContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [options, setOptions] = useState<SolarPackage[]>([]);
@@ -27,17 +27,14 @@ const OptionsModule = () => {
   const id = searchParams.get("id"); // passed from Step6
   const baseUrl = "https://lumobackend.onrender.com";
 
-  console.log("Query ID:", id);
   useEffect(() => {
     if (!id) return;
 
     const fetchRecommendations = async () => {
-      console.log("Do we get here at all")
       try {
         const res = await fetch(`${baseUrl}/api/v1/user/recommendations/${id}`);
         if (!res.ok) throw new Error("Failed to fetch recommendations");
         const data = await res.json();
-        console.log("Fetched recommendations:", data.solarPackageRecommendations);
         setOptions(data.solarPackageRecommendations || []);
       } catch (error) {
         console.error("Error fetching recommendations:", error);
@@ -117,6 +114,12 @@ const OptionsModule = () => {
       </CustomDialog>
     </div>
   );
-};
+}
 
-export default OptionsModule;
+export default function OptionsModule() {
+  return (
+    <Suspense fallback={<div className="p-8 text-center">Loading page...</div>}>
+      <OptionsContent />
+    </Suspense>
+  );
+}
