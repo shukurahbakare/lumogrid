@@ -33,9 +33,9 @@ const Step6 = () => {
         body: JSON.stringify(storedData)
       });
 
-      if (!res.ok) {
-        throw new Error(`API error: ${res.status}`);
-      }
+      // if (!res.ok) {
+      //   throw new Error(`API error: ${res.status}`);
+      // }
 
       const result = await res.json();
       console.log("API Response:", result);
