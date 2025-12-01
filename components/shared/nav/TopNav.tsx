@@ -2,7 +2,7 @@
 import React, { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import Logo from "@/../public/logo.png";
+import Logo from "@/../public/lumologo.png";
 import CustomButton from "../button/CustomButton";
 
 const navLinks = [
@@ -15,7 +15,7 @@ const navLinks = [
   },
   { label: "Company", href: "/" },
   { label: "FAQs", href: "/" },
-  { label: "Lumocademy", href: "/" },
+  { label: "Blog", href: "/blog" },
 ];
 
 const TopNav = () => {
@@ -27,18 +27,21 @@ const TopNav = () => {
   };
 
   return (
-    <nav className="border-b border-gray-200 bg-transparent">
+    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-gray-200 bg-white shadow-sm">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           <div className="flex-shrink-0 flex items-center">
-            <Image src={Logo} alt="Lumogrid Logo" />
+            
+       <Link href="/">
+    <Image src={Logo} alt="Lumogrid Logo" width={100} height={100} />
+  </Link>
           </div>
           <div className="hidden md:flex space-x-8 items-center">
             {navLinks.map((link, idx) =>
               link.subLinks ? (
                 <div className="relative group" key={link.label}>
                   <button
-                    className="inline-flex items-center px-3 py-2 text-gray-700 hover:text-green-600  focus:outline-none"
+                    className="inline-flex items-center px-3 py-2 text-gray-700 hover:text-green-600 font-medium transition-colors focus:outline-none"
                     onClick={() => productsDialogRef.current?.show()}
                     aria-haspopup="dialog"
                     aria-expanded={productsDialogRef.current?.open}
@@ -63,7 +66,7 @@ const TopNav = () => {
                   <dialog
                     ref={productsDialogRef}
                     id="products-dialog"
-                    className="absolute left-0 mt-2 w-40 bg-whit rounded-md shadow-lg z-10 open:opacity-100 open:visible opacity-0 invisible transition-opacity duration-150"
+                    className="absolute left-0 mt-2 w-40 bg-white rounded-md shadow-lg z-10 open:opacity-100 open:visible opacity-0 invisible transition-opacity duration-150"
                     onMouseLeave={() => productsDialogRef.current?.close()}
                     onClick={() => productsDialogRef.current?.close()}
                   >
@@ -76,7 +79,7 @@ const TopNav = () => {
                         <Link
                           key={idx}
                           href={sub.href}
-                          className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                          className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-green-600 transition-colors"
                         >
                           {sub.label}
                         </Link>
@@ -88,7 +91,7 @@ const TopNav = () => {
                 <Link
                   key={idx}
                   href={link.href!}
-                  className="px-3 py-2 text-gray-700 hover:text-green-600 "
+                  className="px-3 py-2 text-gray-700 hover:text-green-600 font-medium transition-colors"
                 >
                   {link.label}
                 </Link>
@@ -100,7 +103,7 @@ const TopNav = () => {
             <CustomButton text={"Create Account"} link="/signup/1"/>
             <button
               onClick={() => mobileMenuRef.current?.showModal()}
-              className="md:hidden flex ml-2 items-center justify-center p-2 rounded-md text-gray-700 hover:bg-gray-200 focus:outline-none"
+              className="md:hidden flex ml-2 items-center justify-center p-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none"
               aria-label="Open menu"
               type="button"
             >
@@ -130,7 +133,7 @@ const TopNav = () => {
           <span className="text-xl font-bold text-gray-900">LumoGrid</span>
           <button
             onClick={() => mobileMenuRef.current?.close()}
-            className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:bg-gray-200 focus:outline-none"
+            className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none"
             aria-label="Close menu"
             type="button"
           >
@@ -153,7 +156,7 @@ const TopNav = () => {
           {navLinks.map((link, idx) =>
             link.subLinks ? (
               <details key={link.label}>
-                <summary className="w-full flex items-center justify-between px-3 py-2 text-gray-700 hover:bg-gray-100 rounded cursor-pointer">
+                <summary className="w-full flex items-center justify-between px-3 py-2 text-gray-700 hover:bg-gray-100 hover:text-green-600 rounded cursor-pointer transition-colors">
                   <span>{link.label}</span>
                   <svg
                     className="ml-2 w-4 h-4"
@@ -174,7 +177,7 @@ const TopNav = () => {
                     <Link
                       key={idx}
                       href={sub.href}
-                      className="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded"
+                      className="block px-3 py-2 text-gray-700 hover:bg-gray-100 hover:text-green-600 rounded transition-colors"
                       onClick={closeMobileMenu}
                     >
                       {sub.label}
@@ -186,7 +189,7 @@ const TopNav = () => {
               <Link
                 key={idx}
                 href={link.href!}
-                className="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded"
+                className="block px-3 py-2 text-gray-700 hover:bg-gray-100 hover:text-green-600 rounded transition-colors"
                 onClick={closeMobileMenu}
               >
                 {link.label}
