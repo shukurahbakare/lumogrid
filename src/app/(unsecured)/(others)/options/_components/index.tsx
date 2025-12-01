@@ -46,6 +46,13 @@ function OptionsContent() {
     fetchRecommendations();
   }, [id]);
 
+  // Function to handle package selection and navigate to payment
+  const handleSelectPackage = (selectedPackage: SolarPackage) => {
+    // Store the selected package in localStorage or pass via URL params
+    localStorage.setItem('selectedPackage', JSON.stringify(selectedPackage));
+    router.push('/payment');
+  };
+
   if (loading) {
     return <div className="p-8 text-center">Loading recommendations...</div>;
   }
@@ -82,10 +89,10 @@ function OptionsContent() {
                   </span>
                 </p>
                 <div
-                  onClick={() => router.push("/payment")}
-                  className="flex items-center justify-between text-xs text-gray-600 mb-4 cursor-pointer"
+                  onClick={() => handleSelectPackage(option)}
+                  className="flex items-center justify-between text-xs text-gray-600 mb-4 cursor-pointer hover:text-gray-900"
                 >
-                  <p>Price Breakdown</p>
+                  <p>Select Package & Continue to Payment</p>
                   <RiArrowRightSLine className="text-xl" />
                 </div>
                 <div className="text-sm text-gray-600 mb-4">

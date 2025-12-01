@@ -23,7 +23,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   const router = useRouter();
   const baseStyle =
     "px-4 py-3.5 rounded-lg font-semibold focus:outline-none transition-colors flex items-center justify-center gap-2";
-  const primaryStyle = "bg-[#34CF94] text-white hover:bg-green-700";
+  const primaryStyle = " bg-green-600 text-white hover:bg-[#34CF94]";
   const secondaryStyle = "bg-gray-900 text-gray-50 hover:bg-gray-300";
 
   const className =
