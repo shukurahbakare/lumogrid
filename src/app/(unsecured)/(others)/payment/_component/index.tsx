@@ -163,6 +163,11 @@ const PaymentModule = () => {
 
   return (
     <div className="w-full mx-auto p-8">
+      {/* Payment Verification Loader */}
+      {isVerifying && (
+        <LoadingSpinner fullScreen size="lg" text={verificationMessage} />
+      )}
+      
       <div className="w-full max-w-7xl mx-auto">
         <header className="py-8 flex justify-between">
           <div onClick={() => router.push("/options")} className="text-2xl text-gray-800 mb-4 flex items-center gap-2 cursor-pointer">
@@ -171,15 +176,17 @@ const PaymentModule = () => {
           </div>
           <div
             onClick={() => handleToggleDialog("FAQs", true)}
-            className="cursor-pointer text-2xl text-gray-800 mb-4 flex items-center gap-2"
+            className="cursor-pointer text-2xl text-gray-800 mb-4 flex items-center gap-2 hover:text-green-600 transition-colors"
           >
             <p>💡</p>
             <p className="text-lg">Got Questions? Click Here</p>
           </div>
         </header>
+        
         <h2 className="text-3xl font-bold mb-4 text-black max-w-md">
           You are about to experience reliable and affordable power!
         </h2>
+        
         <div>
           <div className="grid md:grid-cols-3 gap-3">
             <div className="col-span-2 grid md:grid-cols-2 gap-10 bg-white px-6 py-10 mb-6 border-t-3 border-green-400 rounded-xl">
