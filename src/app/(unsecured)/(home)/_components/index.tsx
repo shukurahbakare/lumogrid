@@ -237,6 +237,64 @@ const LumogridLanding = () => {
         </div>
       </section>
 
+      <section className="py-16 sm:py-20 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-lg text-gray-600">
+              Quick answers to common questions about solar energy
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            {[
+              {
+                question: "How long does installation take?",
+                answer: "Most installations are completed within a week after confirmation of payment. Our certified technicians handle everything end-to-end, and you only need to be present for access permissions."
+              },
+              {
+                question: "Can solar work during cloudy days or rainy seasons?",
+                answer: "Yes. Quality solar panels still produce energy in cloudy conditions, and your batteries supply stored energy at night or during low sunlight periods, ensuring 24/7 electricity."
+              },
+              {
+                question: "What payment options are available?",
+                answer: "Lumogrid offers direct full payment, flexible instalment plans, third-party financing partners, and pay-as-you-go options for select systems."
+              },
+              {
+                question: "Will solar reduce my PHCN bill?",
+                answer: "Yes. Many customers see a 60–90% reduction in their electricity bills depending on their system size and energy consumption patterns."
+              },
+              {
+                question: "What warranty do I get?",
+                answer: "You get 6–12 months warranty on installation workmanship, and solar panels last 25 years or more, maintaining up to 80–90% efficiency over time."
+              }
+            ].map((faq, index) => (
+              <details key={index} className="bg-gray-50 rounded-lg border border-gray-200 group">
+                <summary className="px-6 py-4 cursor-pointer flex justify-between items-center font-semibold text-gray-900 hover:text-green-600 transition-colors">
+                  <span>{faq.question}</span>
+                  <span className="text-green-600 group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <div className="px-6 pb-4 text-gray-600">
+                  {faq.answer}
+                </div>
+              </details>
+            ))}
+          </div>
+
+          <div className="text-center mt-8">
+            <button 
+              onClick={() => window.location.href = '/faqs'}
+              className="text-green-600 hover:text-green-700 font-semibold inline-flex items-center gap-2 transition-colors"
+            >
+              View All FAQs
+              <span className="transition-transform group-hover:translate-x-1">→</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section id="contact-form" className="py-16 sm:py-20 bg-gradient-to-br from-green-600 to-green-700">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
