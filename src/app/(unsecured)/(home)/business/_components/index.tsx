@@ -3,6 +3,7 @@ import HeroComp from "./Hero";
 import GetReliablePowerComp from "./GetReliablePower";
 import TheSolutionComp from "./TheSolution";
 import HighROIComp from "./HighROI";
+import Footer from "../../../../../../components/shared/footer";
 
 const BusinessLandingPageModule = () => {
   return (
@@ -11,6 +12,7 @@ const BusinessLandingPageModule = () => {
       <GetReliablePowerComp />
       <TheSolutionComp />
       <HighROIComp />
+      <Footer />
     </div>
   );
 };

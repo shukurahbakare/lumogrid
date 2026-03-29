@@ -1,205 +1,225 @@
 "use client";
-import React, { useRef } from "react";
+
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import Logo from "@/../public/lumologo.png";
-import CustomButton from "../button/CustomButton";
+import { motion, AnimatePresence } from "framer-motion";
+import lumologo from "../../../public/lumologo.png"; // Adjust the path as needed
+import Logo from "@/../public/lumologo.png"
+
+const SunIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: 28, height: 28 }}>
+    <circle cx="12" cy="12" r="5" />
+    <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+  </svg>
+);
+
+const MenuIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: 24, height: 24 }}>
+    <path d="M3 12h18M3 6h18M3 18h18" />
+  </svg>
+);
+
+const CloseIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: 24, height: 24 }}>
+    <path d="M18 6L6 18M6 6l12 12" />
+  </svg>
+);
+
+interface HeaderProps {
+  onOpenModal?: () => void;
+}
 
 const navLinks = [
-  {
-    label: "Products",
-    subLinks: [
-      { label: "For personal", href: "/" },
-      { label: "For business", href: "/business" },
-    ],
-  },
-  { label: "Company", href: "/" },
-  { label: "FAQs", href: "/faqs" },
+  { label: "For Business", href: "/business" },
+  { label: "FAQ", href: "/faqs" },
   { label: "Blog", href: "/blog" },
 ];
 
-const TopNav = () => {
-  const productsDialogRef = useRef<HTMLDialogElement>(null);
-  const mobileMenuRef = useRef<HTMLDialogElement>(null);
+const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const closeMobileMenu = () => {
-    mobileMenuRef.current?.close();
-  };
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = isMobileMenuOpen ? "hidden" : "";
+  }, [isMobileMenuOpen]);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-gray-200 bg-white shadow-sm">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16 items-center">
-          <div className="flex-shrink-0 flex items-center">
+    <>
+      <motion.header
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="lg-nav"
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 50,
+          transition: "box-shadow 0.3s, background 0.3s",
+          boxShadow: isScrolled ? "0 2px 20px rgba(0,0,0,0.08)" : "none",
+          background: isScrolled ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.9)",
+        }}
+      >
+        <div className="lg-nav__inner">
+          {/* Logo */}
+          <Link href="/" className="lg-nav__logo">
+            <div style={{ color: "var(--color-primary)" }}>
+              {/* <SunIcon /> */}
+              <Image src={Logo} alt="Lumogrid logo" width={150} height={50} />
+            </div>
             
-       <Link href="/">
-    <Image src={Logo} alt="Lumogrid Logo" width={100} height={100} />
-  </Link>
-          </div>
-          <div className="hidden md:flex space-x-8 items-center">
-            {navLinks.map((link, idx) =>
-              link.subLinks ? (
-                <div className="relative group" key={link.label}>
-                  <button
-                    className="inline-flex items-center px-3 py-2 text-gray-700 hover:text-green-600 font-medium transition-colors focus:outline-none"
-                    onClick={() => productsDialogRef.current?.show()}
-                    aria-haspopup="dialog"
-                    aria-expanded={productsDialogRef.current?.open}
-                    aria-controls="products-dialog"
-                    type="button"
-                  >
-                    {link.label}
-                    <svg
-                      className="ml-1 w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M19 9l-7 7-7-7"
-                      />
-                    </svg>
-                  </button>
-                  <dialog
-                    ref={productsDialogRef}
-                    id="products-dialog"
-                    className="absolute left-0 mt-2 w-40 bg-white rounded-md shadow-lg z-10 open:opacity-100 open:visible opacity-0 invisible transition-opacity duration-150"
-                    onMouseLeave={() => productsDialogRef.current?.close()}
-                    onClick={() => productsDialogRef.current?.close()}
-                  >
-                    <div
-                      className="py-1"
-                      onClick={(e) => e.stopPropagation()}
-                      onMouseEnter={() => productsDialogRef.current?.show()}
-                    >
-                      {link.subLinks.map((sub, idx) => (
-                        <Link
-                          key={idx}
-                          href={sub.href}
-                          className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-green-600 transition-colors"
-                        >
-                          {sub.label}
-                        </Link>
-                      ))}
-                    </div>
-                  </dialog>
-                </div>
-              ) : (
-                <Link
-                  key={idx}
-                  href={link.href!}
-                  className="px-3 py-2 text-gray-700 hover:text-green-600 font-medium transition-colors"
-                >
+          </Link>
+
+          {/* Desktop Nav */}
+          <nav style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
+            <div style={{ display: "flex", gap: "2rem" }} className="lg-nav__links">
+              {navLinks.map((link) => (
+                <Link key={link.href} href={link.href} className="lg-nav__link">
                   {link.label}
                 </Link>
-              )
-            )}
-          </div>
-
-          <div className="flex items-center">
-            <CustomButton text={"Create Account"} link="/signup/1"/>
-            <button
-              onClick={() => mobileMenuRef.current?.showModal()}
-              className="md:hidden flex ml-2 items-center justify-center p-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none"
-              aria-label="Open menu"
-              type="button"
-            >
-              <svg
-                className="h-6 w-6"
-                stroke="currentColor"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
+              ))}
+            </div>
+            <button onClick={onOpenModal} className="lg-btn lg-btn--nav">
+              Get Started
             </button>
-          </div>
-        </div>
-      </div>
-      <dialog
-        ref={mobileMenuRef}
-        className="md:hidden bg-white border-t border-gray-200 px-2 pt-2 pb-3 space-y-1 w-full max-w-none left-0 top-0 fixed"
-        style={{ inset: 0, border: "none", borderRadius: 0, padding: 0 }}
-      >
-        <div className="flex justify-between items-center px-4 py-2 border-b border-gray-200">
-          <span className="text-xl font-bold text-gray-900">LumoGrid</span>
+          </nav>
+
+          {/* Mobile Menu Button */}
           <button
-            onClick={() => mobileMenuRef.current?.close()}
-            className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none"
-            aria-label="Close menu"
-            type="button"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle menu"
+            style={{
+              display: "none",
+              padding: "0.5rem",
+              borderRadius: "0.5rem",
+              border: "none",
+              background: "transparent",
+              cursor: "pointer",
+              color: "var(--color-text)",
+            }}
+            className="lg-mobile-menu-btn"
           >
-            <svg
-              className="h-6 w-6"
-              stroke="currentColor"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
+            {isMobileMenuOpen ? <CloseIcon /> : <MenuIcon />}
           </button>
         </div>
-        <div className="px-2 pt-2 pb-3 space-y-1">
-          {navLinks.map((link, idx) =>
-            link.subLinks ? (
-              <details key={link.label}>
-                <summary className="w-full flex items-center justify-between px-3 py-2 text-gray-700 hover:bg-gray-100 hover:text-green-600 rounded cursor-pointer transition-colors">
-                  <span>{link.label}</span>
-                  <svg
-                    className="ml-2 w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </summary>
-                <div className="pl-4">
-                  {link.subLinks.map((sub, idx) => (
-                    <Link
-                      key={idx}
-                      href={sub.href}
-                      className="block px-3 py-2 text-gray-700 hover:bg-gray-100 hover:text-green-600 rounded transition-colors"
-                      onClick={closeMobileMenu}
-                    >
-                      {sub.label}
-                    </Link>
-                  ))}
-                </div>
-              </details>
-            ) : (
+      </motion.header>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              onClick={() => setIsMobileMenuOpen(false)}
+              style={{
+                position: "fixed",
+                inset: 0,
+                background: "rgba(0,0,0,0.5)",
+                backdropFilter: "blur(4px)",
+                zIndex: 40,
+              }}
+            />
+
+            {/* Slide-in Panel */}
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              style={{
+                position: "fixed",
+                top: 0,
+                right: 0,
+                bottom: 0,
+                width: 300,
+                background: "white",
+                boxShadow: "var(--shadow-lg)",
+                zIndex: 50,
+                overflowY: "auto",
+                padding: "1.5rem",
+              }}
+            >
+              {/* Close */}
+              <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "2rem" }}>
+                <button
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  aria-label="Close menu"
+                  style={{ padding: "0.5rem", border: "none", background: "transparent", cursor: "pointer", borderRadius: "0.5rem" }}
+                >
+                  <CloseIcon />
+                </button>
+              </div>
+
+              {/* Logo */}
               <Link
-                key={idx}
-                href={link.href!}
-                className="block px-3 py-2 text-gray-700 hover:bg-gray-100 hover:text-green-600 rounded transition-colors"
-                onClick={closeMobileMenu}
+                href="/"
+                className="lg-nav__logo"
+                style={{ marginBottom: "2rem", display: "flex" }}
+                onClick={() => setIsMobileMenuOpen(false)}
               >
-                {link.label}
+                <div style={{ color: "var(--color-primary)" }}><Image src={Logo} alt="Lumogrid logo" width={100} height={28} /></div>
+                Lumogrid
               </Link>
-            )
-          )}
-        </div>
-      </dialog>
-    </nav>
+
+              {/* Links */}
+              <nav style={{ display: "flex", flexDirection: "column", gap: "0.5rem", marginBottom: "2rem" }}>
+                {navLinks.map((link, i) => (
+                  <motion.div
+                    key={link.href}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.08 }}
+                  >
+                    <Link
+                      href={link.href}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      style={{
+                        display: "block",
+                        padding: "0.75rem 1rem",
+                        borderRadius: "0.5rem",
+                        fontWeight: 500,
+                        color: "var(--color-text)",
+                        textDecoration: "none",
+                        transition: "background 0.2s",
+                      }}
+                      onMouseEnter={e => (e.currentTarget.style.background = "#f9fafb")}
+                      onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
+                    >
+                      {link.label}
+                    </Link>
+                  </motion.div>
+                ))}
+              </nav>
+
+              {/* CTA */}
+              <motion.button
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.25 }}
+                onClick={() => { setIsMobileMenuOpen(false); onOpenModal?.(); }}
+                className="lg-btn lg-btn--primary"
+                style={{ width: "100%", justifyContent: "center" }}
+              >
+                Get Started
+              </motion.button>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 
-export default TopNav;
+export default Header;

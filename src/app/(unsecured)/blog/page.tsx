@@ -1,330 +1,230 @@
-"use client"
+"use client";
 
-import React, { useState } from 'react';
-import { Sun, Menu, X, Calendar, User, ArrowRight, Search } from 'lucide-react';
-import TopNav from '../../../../components/shared/nav/TopNav';
+import { useState } from "react";
+import { motion } from "framer-motion";
+import Header from "../../../../components/shared/nav/TopNav";
+import Footer from "../../../../components/shared/footer";
+import ContactModal from "../../../../components/shared/contactModal";
 
-const LumogridBlogPage = () => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('All');
+const blogPosts = [
+  {
+    id: 1,
+    title: "5 Reasons Why Nigerian Homes Are Switching to Solar",
+    excerpt: "Discover why more families are making the switch to clean, reliable solar energy and saying goodbye to expensive generators.",
+    date: "Feb 10, 2026",
+    category: "Residential",
+    readTime: "5 min read",
+  },
+  {
+    id: 2,
+    title: "Understanding Solar Panel ROI in Nigeria",
+    excerpt: "A comprehensive guide to calculating your return on investment and understanding the true cost savings of solar power.",
+    date: "Feb 8, 2026",
+    category: "Finance",
+    readTime: "8 min read",
+  },
+  {
+    id: 3,
+    title: "How to Maintain Your Solar System",
+    excerpt: "Simple maintenance tips to keep your solar panels running at peak efficiency for decades to come.",
+    date: "Feb 5, 2026",
+    category: "Maintenance",
+    readTime: "6 min read",
+  },
+  {
+    id: 4,
+    title: "Solar vs Generator: The True Cost Comparison",
+    excerpt: "We break down the real costs of running a generator versus installing solar panels over 5 years.",
+    date: "Feb 1, 2026",
+    category: "Finance",
+    readTime: "10 min read",
+  },
+  {
+    id: 5,
+    title: "Success Story: How the Adeleke Family Went Solar",
+    excerpt: "A Lagos family shares their journey from constant blackouts to 24/7 power with solar energy.",
+    date: "Jan 28, 2026",
+    category: "Case Study",
+    readTime: "7 min read",
+  },
+  {
+    id: 6,
+    title: "The Future of Renewable Energy in Nigeria",
+    excerpt: "Exploring the growing renewable energy sector and what it means for Nigerian homeowners.",
+    date: "Jan 25, 2026",
+    category: "Industry",
+    readTime: "12 min read",
+  },
+];
 
-  const navigation = [
-    { name: 'Home', href: '/' },
-    { name: 'How It Works', href: '/#how-it-works' },
-    { name: 'Pricing', href: '/#pricing' },
-    { name: 'Blog', href: '/blog' },
-    { name: 'Contact', href: '/#contact-form' },
-  ];
+const categories = ["All", "Residential", "Finance", "Maintenance", "Case Study", "Industry"];
 
-  const categories = ['All', 'Savings', 'Technology', 'Installation', 'Maintenance', 'News'];
-
-  const blogPosts = [
-    {
-      id: 1,
-      title: "5 Ways Solar Power Saves Nigerian Homes Money",
-      excerpt: "Discover how switching to solar can cut your energy costs by up to 80% and protect you from rising electricity tariffs. Learn about the financial benefits and long-term savings.",
-      content: "Solar power is revolutionizing how Nigerian households manage their energy costs...",
-      date: "Nov 20, 2024",
-      author: "Adebayo Ogunlesi",
-      category: "Savings",
-      readTime: "5 min read",
-      image: "💰"
-    },
-    {
-      id: 2,
-      title: "Understanding Solar Battery Storage for Your Home",
-      excerpt: "Learn how battery storage works and why it's essential for 24/7 power in areas with unreliable grid supply. A comprehensive guide to battery technology.",
-      content: "Battery storage is the key to uninterrupted power supply...",
-      date: "Nov 15, 2024",
-      author: "Chioma Nwosu",
-      category: "Technology",
-      readTime: "7 min read",
-      image: "🔋"
-    },
-    {
-      id: 3,
-      title: "Solar Installation: What to Expect in Lagos",
-      excerpt: "A step-by-step guide to the solar installation process, from assessment to activation, specifically for Lagos homeowners. Everything you need to know.",
-      content: "Installing solar panels in Lagos is easier than you think...",
-      date: "Nov 10, 2024",
-      author: "Emeka Okafor",
-      category: "Installation",
-      readTime: "6 min read",
-      image: "🏠"
-    },
-    {
-      id: 4,
-      title: "The Ultimate Guide to Solar Panel Maintenance",
-      excerpt: "Keep your solar system running at peak efficiency with these essential maintenance tips. Simple practices that extend the life of your investment.",
-      content: "Maintaining your solar panels is crucial for optimal performance...",
-      date: "Nov 5, 2024",
-      author: "Fatima Abdullahi",
-      category: "Maintenance",
-      readTime: "4 min read",
-      image: "🔧"
-    },
-    {
-      id: 5,
-      title: "Government Incentives for Solar Energy in Nigeria",
-      excerpt: "Explore the latest government policies and incentives supporting solar adoption in Nigeria. Learn how to benefit from available programs.",
-      content: "The Nigerian government is increasingly supporting renewable energy...",
-      date: "Oct 28, 2024",
-      author: "Oluwaseun Adeyemi",
-      category: "News",
-      readTime: "5 min read",
-      image: "📋"
-    },
-    {
-      id: 6,
-      title: "Solar vs Generator: A Cost Comparison for 2024",
-      excerpt: "An in-depth analysis comparing the costs of running a generator versus solar power. The numbers might surprise you.",
-      content: "When comparing solar and generators, the long-term savings are clear...",
-      date: "Oct 20, 2024",
-      author: "Ibrahim Mohammed",
-      category: "Savings",
-      readTime: "8 min read",
-      image: "⚡"
-    },
-    {
-      id: 7,
-      title: "How Solar Panels Work: A Simple Explanation",
-      excerpt: "Demystifying solar technology with an easy-to-understand breakdown of how solar panels convert sunlight into electricity.",
-      content: "Solar panels might seem complex, but the principle is simple...",
-      date: "Oct 15, 2024",
-      author: "Chioma Nwosu",
-      category: "Technology",
-      readTime: "6 min read",
-      image: "☀️"
-    },
-    {
-      id: 8,
-      title: "Preparing Your Home for Solar Installation",
-      excerpt: "Essential steps to take before your solar installation day. Make the process smooth and hassle-free with proper preparation.",
-      content: "Proper preparation ensures a smooth installation process...",
-      date: "Oct 10, 2024",
-      author: "Adebayo Ogunlesi",
-      category: "Installation",
-      readTime: "5 min read",
-      image: "🏡"
-    },
-    {
-      id: 9,
-      title: "The Environmental Impact of Going Solar",
-      excerpt: "Understand how switching to solar helps reduce your carbon footprint and contributes to a cleaner Nigeria.",
-      content: "Solar energy is one of the cleanest power sources available...",
-      date: "Oct 5, 2024",
-      author: "Fatima Abdullahi",
-      category: "News",
-      readTime: "4 min read",
-      image: "🌍"
-    }
-  ];
-
-  const filteredPosts = blogPosts.filter(post => {
-    const matchesCategory = selectedCategory === 'All' || post.category === selectedCategory;
-    const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
-
-  const featuredPost = blogPosts[0];
-
-  return (
-    <div className="min-h-screen bg-white">
-      {/* Navigation Header */}
-           <TopNav />
-
-
-      {/* Blog Header */}
-      <section className="bg-gradient-to-br from-green-50 to-white py-16  mt-10">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
-            Lumogrid Blog
-          </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Your source for solar energy insights, tips, and updates in Nigeria
-          </p>
-        </div>
-      </section>
-
-      {/* Featured Post */}
-      <section className="py-12 bg-white border-b border-gray-100">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-gradient-to-br from-green-50 to-white rounded-2xl overflow-hidden shadow-xl border border-green-100">
-            <div className="grid md:grid-cols-2 gap-8 items-center">
-              <div className="bg-gradient-to-br from-green-400 to-green-600 h-64 md:h-full flex items-center justify-center text-8xl">
-                {featuredPost.image}
-              </div>
-              <div className="p-8">
-                <span className="inline-block px-3 py-1 bg-green-600 text-white text-xs font-semibold rounded-full mb-4">
-                  Featured
-                </span>
-                <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                  {featuredPost.title}
-                </h2>
-                <p className="text-gray-600 mb-6">
-                  {featuredPost.excerpt}
-                </p>
-                <div className="flex items-center gap-4 text-sm text-gray-500 mb-6">
-                  <div className="flex items-center gap-1">
-                    <User className="w-4 h-4" />
-                    <span>{featuredPost.author}</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Calendar className="w-4 h-4" />
-                    <span>{featuredPost.date}</span>
-                  </div>
-                </div>
-                <button className="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-lg transition-all duration-300 inline-flex items-center gap-2">
-                  Read Full Article
-                  <ArrowRight className="w-5 h-5" />
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Search and Filter */}
-      <section className="py-8 bg-gray-50 border-b border-gray-200">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-            {/* Search Bar */}
-            <div className="relative w-full md:w-96">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-              <input
-                type="text"
-                placeholder="Search articles..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-              />
-            </div>
-
-            {/* Category Filter */}
-            <div className="flex gap-2 overflow-x-auto pb-2 md:pb-0">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className={`px-4 py-2 rounded-lg font-medium whitespace-nowrap transition-all ${
-                    selectedCategory === category
-                      ? 'bg-green-600 text-white'
-                      : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
-                  }`}
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Blog Grid */}
-      <section className="py-16 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          {filteredPosts.length === 0 ? (
-            <div className="text-center py-12">
-              <p className="text-xl text-gray-600">No articles found. Try a different search or category.</p>
-            </div>
-          ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredPosts.map((post) => (
-                <article key={post.id} className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden group border border-gray-100">
-                  <div className="bg-gradient-to-br from-green-400 to-green-600 h-48 flex items-center justify-center text-6xl">
-                    {post.image}
-                  </div>
-                  <div className="p-6">
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-xs font-semibold text-green-600 bg-green-50 px-3 py-1 rounded-full">
-                        {post.category}
-                      </span>
-                      <span className="text-xs text-gray-500">{post.readTime}</span>
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-green-600 transition-colors line-clamp-2">
-                      {post.title}
-                    </h3>
-                    <p className="text-gray-600 mb-4 line-clamp-3">
-                      {post.excerpt}
-                    </p>
-                    <div className="flex items-center gap-3 text-sm text-gray-500 mb-4">
-                      <div className="flex items-center gap-1">
-                        <Calendar className="w-4 h-4" />
-                        <span>{post.date}</span>
-                      </div>
-                    </div>
-                    <button className="text-green-600 font-semibold hover:text-green-700 transition-colors inline-flex items-center gap-2">
-                      Read More
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    </button>
-                  </div>
-                </article>
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* Newsletter Section */}
-      <section className="py-16 bg-gradient-to-br from-green-600 to-green-700">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-            Subscribe to Our Newsletter
-          </h2>
-          <p className="text-xl text-green-50 mb-8">
-            Get the latest solar energy tips and insights delivered to your inbox
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 px-6 py-4 rounded-lg focus:outline-none focus:ring-4 focus:ring-green-300"
-            />
-            <button className="bg-gray-900 hover:bg-gray-800 text-white font-semibold px-8 py-4 rounded-lg transition-all duration-300 whitespace-nowrap">
-              Subscribe
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-gray-900 text-gray-300 py-12">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
-            <div className="col-span-2">
-              <div className="flex items-center gap-2 mb-4">
-                <Sun className="w-8 h-8 text-green-500" />
-                <span className="text-2xl font-bold text-white">Lumogrid</span>
-              </div>
-              <p className="text-gray-400 mb-4">
-                Powering African homes with clean, reliable, and affordable solar energy.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-white font-semibold mb-4">Quick Links</h3>
-              <ul className="space-y-2">
-                {['Home', 'About Us', 'How It Works', 'Pricing', 'Blog'].map((item, index) => (
-                  <li key={index}>
-                    <button className="hover:text-green-500 transition-colors text-left">{item}</button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-white font-semibold mb-4">Contact</h3>
-              <p className="text-sm text-gray-400">Lagos, Nigeria</p>
-              <p className="text-sm text-gray-400">info@lumogrid.com</p>
-            </div>
-          </div>
-          <div className="border-t border-gray-800 pt-8 text-center">
-            <p className="text-sm text-gray-400">© 2025 Lumogrid. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
-    </div>
-  );
+const categoryColors: Record<string, string> = {
+  Residential: "#10b981",
+  Finance: "#3b82f6",
+  Maintenance: "#f59e0b",
+  "Case Study": "#8b5cf6",
+  Industry: "#ef4444",
 };
 
-export default LumogridBlogPage;
+export default function BlogPage() {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
+  const filteredPosts =
+    selectedCategory === "All"
+      ? blogPosts
+      : blogPosts.filter((post) => post.category === selectedCategory);
+
+  return (
+    <>
+      <Header onOpenModal={() => setModalOpen(true)} />
+      <ContactModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+
+      <main>
+        {/* ── Hero ── */}
+        <section className="lg-hero" style={{ paddingTop: "calc(5rem + 80px)", paddingBottom: "4rem" }}>
+          <div className="lg-hero__grid" />
+          <div className="lg-hero__glow--top" />
+
+          <div className="lg-hero__inner" style={{ textAlign: "center" }}>
+            <motion.div
+              className="lg-hero__badge"
+              style={{ margin: "0 auto 1.5rem" }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6 }}
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ width: 14, height: 14 }}>
+                <path d="M13 2L4.5 12.5h6L9 22l9.5-10.5h-6L13 2z" />
+              </svg>
+              Insights & Updates
+            </motion.div>
+
+            <motion.h1
+              className="lg-hero__title"
+              style={{ textAlign: "center" }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.8 }}
+            >
+              Solar Energy <em>Blog</em>
+            </motion.h1>
+
+            <motion.p
+              className="lg-hero__desc"
+              style={{ margin: "0 auto", textAlign: "center" }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.8 }}
+            >
+              Tips, guides, and insights about solar energy in Nigeria
+            </motion.p>
+          </div>
+        </section>
+
+        {/* ── Category Filter ── */}
+        <section className="lg-blog-filter">
+          <div className="lg-blog-filter__inner">
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => setSelectedCategory(category)}
+                className={`lg-blog-filter__btn${selectedCategory === category ? " lg-blog-filter__btn--active" : ""}`}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+        </section>
+
+        {/* ── Posts Grid ── */}
+        <section className="lg-blog-grid-section">
+          <div className="lg-blog-grid-inner">
+            {filteredPosts.length > 0 ? (
+              <div className="lg-blog-grid">
+                {filteredPosts.map((post, index) => (
+                  <motion.article
+                    key={post.id}
+                    className="lg-blog-card"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1, duration: 0.6 }}
+                  >
+                    {/* Image placeholder with category colour */}
+                    <div
+                      className="lg-blog-card__img"
+                      style={{ background: `linear-gradient(135deg, ${categoryColors[post.category] ?? "#10b981"}22, ${categoryColors[post.category] ?? "#10b981"}44)` }}
+                    >
+                      <span
+                        className="lg-blog-card__category"
+                        style={{ background: categoryColors[post.category] ?? "var(--color-primary)" }}
+                      >
+                        {post.category}
+                      </span>
+                    </div>
+
+                    <div className="lg-blog-card__body">
+                      <div className="lg-blog-card__meta">
+                        <span>{post.date}</span>
+                        <span className="lg-blog-card__dot">·</span>
+                        <span>{post.readTime}</span>
+                      </div>
+
+                      <h3 className="lg-blog-card__title">{post.title}</h3>
+                      <p className="lg-blog-card__excerpt">{post.excerpt}</p>
+
+                      <button className="lg-blog-card__read-more">
+                        Read More
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ width: 16, height: 16 }}>
+                          <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                      </button>
+                    </div>
+                  </motion.article>
+                ))}
+              </div>
+            ) : (
+              <div className="lg-blog-empty">
+                <p className="lg-blog-empty__title">No posts found</p>
+                <p className="lg-blog-empty__sub">Try selecting a different category</p>
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* ── Newsletter CTA ── */}
+        <section className="lg-cta">
+          <div className="lg-cta__glow--top" />
+          <div className="lg-cta__glow--bottom" />
+          <motion.div
+            className="lg-cta__inner"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="lg-cta__title">Stay Informed</h2>
+            <p className="lg-cta__desc">
+              Get solar energy tips and updates delivered to your inbox every week
+            </p>
+            <div className="lg-blog-newsletter">
+              <input
+                type="email"
+                placeholder="Your email address"
+                className="lg-blog-newsletter__input"
+              />
+              <button className="lg-btn lg-btn--cta" style={{ fontSize: "1rem", padding: "0.875rem 1.75rem", whiteSpace: "nowrap" }}>
+                Subscribe
+              </button>
+            </div>
+            <p className="lg-cta__note">Join 5,000+ subscribers · Unsubscribe anytime</p>
+          </motion.div>
+        </section>
+      </main>
+
+      <Footer />
+    </>
+  );
+}
