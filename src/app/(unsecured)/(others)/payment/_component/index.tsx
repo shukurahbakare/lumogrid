@@ -11,6 +11,7 @@ import Image from "next/image";
 import HouseImg from "../../options/_components/assets/graphic.png";
 import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
+import FAQSection from "@/app/(unsecured)/_components/faq-section";
 
 
 type SolarPackage = {
@@ -334,7 +335,7 @@ const PaymentModule = () => {
         id={"FAQs"}
         header="Frequently Asked Questions"
       >
-        <FAQs />
+        <FAQSection />
       </CustomDialog>
     </div>
   );

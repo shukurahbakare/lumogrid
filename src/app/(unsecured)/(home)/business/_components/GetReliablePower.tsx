@@ -1,35 +1,39 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import ManImage from "../_components/assets/man.png";
-import CustomButton from "@/../components/shared/button/CustomButton";
 
-const GetReliablePowerComp = () => {
+const GetReliablePowerComp = ({ onGetStarted }: { onGetStarted?: () => void }) => {
   return (
-    <div className="bg-white border-b border-gray-200 py-16 sm:py-16 transition-all duration-300">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-2">
-        <div className="px-8 pt-16 bg-[#34CF94] rounded-xl flex flex-col items-start gap-4">
-          <p className="text-white text-xl">
-            Power outages and high electricity costs are more than just an
-            inconvenience – they disrupt operations, affect productivity, and
-            can potentially reduce your earnings. As a business owner, you need
-            a reliable and cost-effective energy solution that can keep your
-            operations running smoothly, 24/7.
-          </p>
-          <CustomButton text={"Get Reliable Power Now"} mode="secondary" />
-        </div>
+    <section className="lg-biz-section lg-biz-section--white">
+      <div className="lg-biz-inner">
+        <div className="lg-biz-split">
+          {/* Green content card */}
+          <div className="lg-biz-power-card">
+            <div className="lg-biz-power-card__glow" />
+            <p className="lg-biz-power-card__text">
+              Power outages and high electricity costs are more than just an inconvenience — they
+              disrupt operations, affect productivity, and reduce your earnings. As a business owner,
+              you need a reliable and cost-effective energy solution that keeps your operations
+              running smoothly, 24/7.
+            </p>
+            <button
+              onClick={onGetStarted}
+              className="lg-btn lg-btn--cta"
+              style={{ alignSelf: "flex-start", fontSize: "1rem", padding: "0.875rem 2rem" }}
+            >
+              Get Reliable Power Now
+            </button>
+          </div>
 
-        {/* Image Container */}
-        <div className="bg-red-300 rounded-xl relative w-full h-[40vw]">
-          <Image
-            src={ManImage}
-            alt="Man"
-            fill
-            className="object-cover rounded-xl"
-            priority
-          />
+          {/* Image */}
+          <div className="lg-biz-split__img-wrap">
+            <Image src={ManImage} alt="Business Owner" fill className="lg-biz-split__img" priority />
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
