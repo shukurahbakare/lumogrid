@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import "../_components/landing-page/index.css";
+// import "../_components/landing-page/index.css";
 
 // Scroll-reveal hook
 function useReveal(threshold = 0.15) {
