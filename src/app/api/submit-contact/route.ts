@@ -45,6 +45,12 @@ export async function POST(req: Request) {
     const body: ContactPayload = await req.json();
     
     console.log("Received payload:", JSON.stringify(body, null, 2));
+    console.log("SMTP config:", {
+  host: process.env.SMTP_HOST,
+  port: process.env.SMTP_PORT,
+  user: process.env.SMTP_USER,
+  hasPass: !!process.env.SMTP_PASS,
+});
 
     
     const requiredFields = [
@@ -101,7 +107,7 @@ export async function POST(req: Request) {
       .map(([app, qty]) => `<li style="padding: 4px 0;">${app}: <strong>${qty}</strong></li>`)
       .join('');
 
- transporter// confirmation email → customer ──
+//  transporter// confirmation email → customer ──
 await transporter.sendMail({
   from: `Lumogrid <${process.env.SMTP_USER}>`,
   to: body.email,
