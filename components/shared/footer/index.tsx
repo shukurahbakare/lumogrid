@@ -12,9 +12,7 @@ const SunIcon = () => (
 );
 
 const quickLinks = [
-  { label: "About Us", href: "/about" },
-  { label: "How It Works", href: "/how-it-works" },
-  { label: "Pricing", href: "/pricing" },
+  { label: "For Business ", href: "/business" },
   { label: "FAQ", href: "/faqs" },
   { label: "Blog", href: "/blog" },
 ];
